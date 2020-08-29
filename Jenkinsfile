@@ -4,11 +4,12 @@
 // agent is similar to node
 
 pipeline {
-     agent any
+     agent { docker {image 'maven:3.6.3'} }
 
      stages {
      	    stage('Build') {
 	       steps {
+	       	    sh 'mvn --version'
 	            echo "Build"
 	       }
 	    }
@@ -17,7 +18,6 @@ pipeline {
 		    echo "Test"
 	       }
 	    }
-
      	    stage('IntegrationTest') {
 	       steps {
 		    echo "IntegrationTest"
@@ -34,6 +34,11 @@ pipeline {
        	    failure {
 	    	   echo " I am a failure"
 	    }
+	    // unstable
+	    // changed {
+	    //     echo " I can change"
+	    // }
+	    
 
      }
 }
