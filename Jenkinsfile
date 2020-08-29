@@ -23,6 +23,16 @@ pipeline {
 		    echo "IntegrationTest"
 	       }
 	    }
+     } post {
+       	    always {
+	    	   echo " I am so cool. I run always"
+	    }
+       	    success {
+	    	   echo " I am successful"
+	    }
+       	    failure {
+	    	   echo " I am a failure"
+	    }
 
      }
 }
