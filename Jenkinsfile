@@ -12,11 +12,11 @@ pipeline {
 	   PATH = "$mavenHome/bin:$PATH"
      }
      stages {
-     	    stage('Build') {
+     	    stage('Checkout') {
 	       steps {
 	       	    sh 'mvn --version'
 		    
-	            echo "Build"
+	            echo "Checkout"
 		    echo "PATH = $PATH"
 		    echo "BUILD NUMBER = $env.BUILD_NUMBER"
 		    echo "BUILD ID = $env.BUILD_ID"
@@ -26,14 +26,22 @@ pipeline {
 		    
 	       }
 	    }
+       	    stage('Compile') {
+	       steps {
+		    echo "Compile"
+		    sh "mvn clean compile"
+	       }
+	    }
        	    stage('Test') {
 	       steps {
 		    echo "Test"
+		    sh "mvn test"
 	       }
 	    }
      	    stage('IntegrationTest') {
 	       steps {
 		    echo "IntegrationTest"
+		    sh "mvn failsafe:integraton-test failsafe:verify"
 	       }
 	    }
      }
